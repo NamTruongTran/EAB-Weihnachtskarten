@@ -112,7 +112,9 @@ body.white {
     top: 5%;
     left: 5%;
     font-family: 'Dancing Script', cursive;
-    font-size: clamp(14px, 2.8vw, 20px);
+    /* font-size: clamp(14px, 2.8vw, 20px); */
+    /* font-size: clamp(22px, 4.5vw, 34px); */
+    font-size: clamp(18px, 3.5vw, 28px);
     color: #5a4a3a;
     z-index: 10;
     font-weight: 500;
@@ -125,7 +127,8 @@ body.white {
     left: 50%;
     transform: translate(-50%, -50%) translateZ(3px);
     font-family: 'Dancing Script', cursive;
-    font-size: clamp(20px, 4vw, 32px);
+    /* font-size: clamp(20px, 4vw, 32px); */
+    font-size: clamp(24px, 5vw, 40px);
     color: #5a4a3a;
     z-index: 10;
     font-weight: 700;
@@ -139,7 +142,9 @@ body.white {
     top: 5%;
     right: 5%;
     left: auto;
-    width: clamp(40px, 8vw, 80px);
+    /* width: clamp(40px, 8vw, 80px); */
+    /* width: clamp(70px, 14vw, 160px); */
+    width: clamp(55px, 10vw, 130px);
     height: auto;
     z-index: 10;
     opacity: 0.9;
@@ -182,7 +187,7 @@ body.white {
     display: none;
 }
 
-#mv_msg .envelope > .flap_outside {
+#mv_msg .envelope>.flap_outside {
     -moz-transform: rotateX(-180deg) rotateY(180deg) translateY(-1.2px) translateX(0) translateZ(2px);
     -webkit-transform: rotateX(-180deg) rotateY(180deg) translateY(-1.2px) translateX(0) translateZ(2px);
     transform: rotateX(-180deg) rotateY(180deg) translateY(-1.2px) translateX(0) translateZ(2px);
@@ -208,7 +213,7 @@ body.white {
     transform: rotateX(0deg) translateZ(1px);
 }
 
-#mv_msg .animation .envelope.closed > .flap_outside {
+#mv_msg .animation .envelope.closed>.flap_outside {
     display: none;
 }
 
@@ -232,7 +237,7 @@ body.white {
     transform: rotateX(-180deg) translateZ(0.1px) translateY(0px);
 }
 
-#mv_msg .envelope.closed > .flap_outside {
+#mv_msg .envelope.closed>.flap_outside {
     -moz-transform: rotateX(0deg) translateZ(2px) translateY(-1.2px);
     -webkit-transform: rotateX(0deg) translateZ(2px) translateY(-1.2px);
     transform: rotateX(0deg) translateZ(2px) translateY(-1.2px);
@@ -330,7 +335,14 @@ body.white {
 }
 
 #mv_msg .envelope .card-front .card-logo-placeholder .custom-card-logo {
-    width: clamp(80px, 20vw, 150px);
+    /* Originalgröße */
+    /* width: clamp(80px, 20vw, 150px); */
+    /* Größe 1 */
+    /* width: clamp(120px, 25vw, 220px); */
+    /* Größe 2 */
+    width: clamp(150px, 30vw, 260px);
+    /* Größe 3 */
+    /* width: clamp(180px, 35vw, 320px); */
     display: block;
     height: auto;
     transform: translateY(-100%)
@@ -342,9 +354,9 @@ body.white {
     height: 100%;
     background-color: #d0d0d0;
     background-image: linear-gradient(135deg, #e8e8e8 25%, transparent 25%),
-                      linear-gradient(225deg, #e8e8e8 25%, transparent 25%),
-                      linear-gradient(45deg, #e8e8e8 25%, transparent 25%),
-                      linear-gradient(315deg, #e8e8e8 25%, #d0d0d0 25%);
+        linear-gradient(225deg, #e8e8e8 25%, transparent 25%),
+        linear-gradient(45deg, #e8e8e8 25%, transparent 25%),
+        linear-gradient(315deg, #e8e8e8 25%, #d0d0d0 25%);
     background-position: 10px 0, 10px 0, 0 0, 0 0;
     background-size: 20px 20px;
     background-repeat: repeat;
@@ -412,6 +424,7 @@ body.white {
 }
 
 @media (max-width: 600px) {
+
     #mv_msg .envelope .card-front .card-title,
     #mv_msg .envelope .card-front .card-message,
     #mv_msg .envelope .card-front .card-sender {
@@ -604,4 +617,3 @@ body.white {
     transform: translateX(-50%) translateY(0px);
     color: #333333;
 }
-

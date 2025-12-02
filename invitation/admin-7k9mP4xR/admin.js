@@ -7,9 +7,9 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let appState = {
     globalSettings: {
-        senderName: 'Andrew Reinert',
-        cardFrontMessage: 'Wishing you a wonderful Christmas!',
-        cardBackMessage: 'I wish you all the best for the future. May this holiday season bring you joy and happiness.',
+        senderName: 'EAB Energie-Anlagen Berlin GmbH',
+        cardFrontMessage: 'UND EINEN ERFOLGREICHEN START IN DAS NEUE JAHR !',
+        cardBackMessage: 'Wir wünschen Ihnen und Ihrer Familie schöne Weihnachten und ein guten Rutsch ins neue Jahr.',
         envelopeColor: '#E7CDA8',
         envelopeTextColor: '#5a4a3a',
         titleColor: '#2c5f2d',
@@ -87,7 +87,7 @@ async function handleLogin(e) {
 }
 
 async function logout() {
-    if (!confirm('Are you sure you want to logout?')) {
+    if (!confirm('Sind Sie sicher, dass Sie sich abmelden möchten?')) {
         return;
     }
 
@@ -96,8 +96,8 @@ async function logout() {
         // Redirect to landing page
         window.location.href = '../../index.html';
     } catch (error) {
-        console.error('Logout failed:', error);
-        showNotification('Logout failed', 'error');
+        console.error('Logout Fehlgeschlagen:', error);
+        showNotification('Logout Fehlgeschlagen', 'error');
     }
 }
 
@@ -317,12 +317,12 @@ function renderFriendsList() {
                 <div class="friend-details">
                     ${friend.email ? `<span>📧 ${escapeHtml(friend.email)}</span>` : ''}
                     <span>🎨 <span class="color-preview" style="background-color: ${friend.envelopeColor || appState.globalSettings.envelopeColor}"></span></span>
-                    ${friend.customFrontMessage || friend.customBackMessage ? '<span>✉️ Custom messages</span>' : ''}
+                    ${friend.customFrontMessage || friend.customBackMessage ? '<span>✉️ Benutzerdefinierte Nachricht</span>' : ''}
                 </div>
             </div>
             <div class="friend-actions">
-                <button class="btn btn-secondary" onclick="editFriend(${index})">✏️ Edit</button>
-                <button class="btn btn-danger" onclick="deleteFriend(${index})">🗑️ Delete</button>
+                <button class="btn btn-secondary" onclick="editFriend(${index})">✏️ Bearbeiten</button>
+                <button class="btn btn-danger" onclick="deleteFriend(${index})">🗑️ Entfernen</button>
             </div>
         </div>
     `).join('');
@@ -348,8 +348,8 @@ function renderLinksList() {
                     <div class="link-url" title="${url}">...?code=${code}</div>
                 </div>
                 <div class="link-actions">
-                    <button class="btn btn-outline btn-sm" onclick="copyLink('${url}')">📋 Copy</button>
-                    <button class="btn btn-primary btn-sm" onclick="openCardPreview('${url}')">👁️ Preview</button>
+                    <button class="btn btn-outline btn-sm" onclick="copyLink('${url}')">📋 Kopieren</button>
+                    <button class="btn btn-primary btn-sm" onclick="openCardPreview('${url}')">👁️ Vorschau</button>
                 </div>
             </div>
         `;
@@ -379,19 +379,19 @@ function renderEmailTemplates() {
                 <div class="email-template-header" onclick="toggleEmailAccordion(${index})">
                     <h3>${escapeHtml(friend.name)} <span class="friend-code">#${friend.code || '????'}</span></h3>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); copyEmailTemplate(${index})">📋 Copy Email</button>
-                        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); copyEmailHTML(${index})">📄 Copy HTML</button>
+                        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); copyEmailTemplate(${index})">📋 Email kopieren</button>
+                        <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); copyEmailHTML(${index})">📄 HTML kopieren</button>
                         <span class="accordion-icon">▼</span>
                     </div>
                 </div>
                 <div class="email-template-content" id="emailContent${index}" style="display: none;">
                     <div class="form-group">
-                        <label style="font-weight: 600; margin-bottom: 8px; display: block;">✏️ Click anywhere below to edit the email content:</label>
+                        <label style="font-weight: 600; margin-bottom: 8px; display: block;">✏️ Klicken Sie in dem Bereich, um den E-Mail-Inhalt zu bearbeiten:</label>
                         <div id="emailEditor${index}" contenteditable="true" class="contenteditable-email" style="width: 100%; min-height: 400px; border: 2px solid var(--border); border-radius: 8px; padding: 20px; background: white; overflow: auto; max-height: 600px;" onblur="saveEmailTemplate(${index})">${friend.emailHTML || emailHTML}</div>
-                        <small style="display: block; margin-top: 8px; color: var(--text-light);">💡 Tip: You can edit text, change colors, modify the message - just click and type!</small>
+                        <small style="display: block; margin-top: 8px; color: var(--text-light);">💡 Tipp: Sie können den Text bearbeiten, Farben ändern und die Nachricht anpassen - einfach klicken und bearbeiten!</small>
                     </div>
                     <div style="margin-top: 12px;">
-                        <button class="btn btn-outline btn-sm" onclick="resetEmailTemplate(${index})">🔄 Reset to Default</button>
+                        <button class="btn btn-outline btn-sm" onclick="resetEmailTemplate(${index})">🔄 Reset auf Standardeinstellung</button>
                     </div>
                 </div>
             </div>
@@ -411,59 +411,125 @@ function createEmailTemplate(recipientName, cardUrl, senderName, envelopeColor =
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merry Christmas from ${senderName}</title>
+    <title>Frohe Weihnachtenn Von ${senderName}</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; background-color: #f4f4f4;">
     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f4f4f4;">
         <tr>
-            <td style="padding: 40px 20px;">
+            <td align="center" style="padding: 40px 20px;">
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <!-- Header -->
                     <tr>
-                        <td style="padding: 40px 40px 20px; text-align: center; background: linear-gradient(135deg, ${envelopeColor} 0%, ${darkerShade} 100%); border-radius: 8px 8px 0 0;">
-                            <p style="margin: 0 0 12px 0; font-size: 14px; color: ${envelopeTextColor}; opacity: 0.8; font-family: 'Dancing Script', cursive;">From: ${senderName}</p>
-                            <h1 style="margin: 0; color: ${envelopeTextColor}; font-size: 32px; font-family: Georgia, 'Times New Roman', serif;">🎄 Merry Christmas! 🎄</h1>
+                        <td style="padding: 40px 40px 20px; text-align: center; background: ${envelopeColor}; border-radius: 8px 8px 0 0;">
+                            <p style="margin: 0 0 12px 0; font-size: 14px; color: ${envelopeTextColor}; opacity: 0.8; font-family: 'Dancing Script', cursive;">
+                                Von: ${senderName}
+                            </p>
+                            <h1 style="margin: 0; color: ${envelopeTextColor}; font-size: 32px; font-family: Georgia, 'Times New Roman', serif;">
+                                🎄 Frohe Weihnachten! 🎄
+                            </h1>
                         </td>
                     </tr>
 
                     <!-- Body -->
                     <tr>
-                        <td style="padding: 40px;">
-                            <p style="margin: 0 0 20px; font-size: 18px; line-height: 1.6; color: #333333;">Hi ${recipientName},</p>
+                        <td style="padding: 40px; text-align: center;">
+                            <p style="margin: 0 0 20px; font-size: 18px; line-height: 1.6; color: #333333;">
+                                Hallo ${recipientName},
+                            </p>
 
                             <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: #555555;">
-                                Wishing you a wonderful Christmas and a happy New Year! I hope this holiday season brings you lots of joy and happiness.
+                               Ich wünsche dir ein wunderbares Weihnachtsfest und ein glückliches neues Jahr! Ich hoffe, dass diese Feiertage dir viel Freude und Glück bringen!
                             </p>
 
                             <p style="margin: 0 0 30px; font-size: 16px; line-height: 1.6; color: #555555;">
-                                Click below to view your card:
+                                Klicke unten auf „Karte öffnen“ um dir die Karte anzuschauen:
                             </p>
 
                             <!-- CTA Button -->
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                                <tr>
-                                    <td style="padding: 0 0 20px; text-align: center;">
-                                        <a href="${cardUrl}" style="display: inline-block; padding: 16px 40px; background-color: ${envelopeColor}; color: ${envelopeTextColor}; text-decoration: none; border-radius: 6px; font-size: 18px; font-weight: bold; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-                                            🎁 View Card
-                                        </a>
-                                    </td>
-                                </tr>
+                              <tr>
+                                <td align="center" style="padding: 0 0 20px;">
+                                  <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                    <tr>
+                                      <td bgcolor="${envelopeColor}"
+                                          style="background-color:${envelopeColor};
+                                                 border-radius:6px;
+                                                 padding:12px 32px;">
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                          <tr>
+                                            <td style="padding-right:8px; font-size:18px;">
+                                              🎁
+                                            </td>
+                                            <td>
+                                              <a href="${cardUrl}"
+                                                 style="display:inline-block;
+                                                        font-size:18px;
+                                                        font-family: Arial, Helvetica, sans-serif;
+                                                        font-weight:bold;
+                                                        color:${envelopeTextColor};
+                                                        text-decoration:underline;">
+                                                Karte Öffnen
+                                              </a>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
                             </table>
                         </td>
                     </tr>
 
                     <!-- Footer -->
                     <tr>
-                        <td style="padding: 30px 40px; text-align: center; background-color: #f9f9f9; border-radius: 0 0 8px 8px; border-top: 1px solid #e0e0e0;">
-                            <p style="margin: 0; font-size: 14px; color: #888888;">
-                                Warm wishes,<br>
-                                ${logoUrl ? `<img src="${logoUrl}" alt="${senderName}" style="max-width: 200px; height: auto; margin-top: 10px;" />` : `<strong style="font-size: 16px;">${senderName}</strong>`}
-                            </p>
-                            <p style="margin: 15px 0 0; font-size: 12px; color: #aaaaaa;">
-                                🎅 Happy Holidays! 🎄
-                            </p>
+                        <td align="center" style="padding: 30px 40px; background-color: #f9f9f9; border-radius: 0 0 8px 8px; border-top: 1px solid #e0e0e0;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <!-- Zeile 1: Herzliche Grüße -->
+                                <tr>
+                                    <td align="center" style="font-size:14px; color:#888888;">
+                                        Herzliche Grüße,
+                                    </td>
+                                </tr>
+
+                                <!-- Zeile 2: Logo ODER Name -->
+                                ${logoUrl
+            ? `
+                                      <tr>
+                                        <td align="center" style="padding-top:15px; padding-bottom:10px;">
+                                          <img src="${logoUrl}" alt="${senderName}"
+                                               width="200"
+                                               style="display:block;
+                                                      width:200px;
+                                                      height:auto;
+                                                      margin:0 auto;
+                                                      border:0;" />
+                                        </td>
+                                      </tr>
+                                      `
+            : `
+                                      <tr>
+                                        <td align="center" style="padding-top:8px;">
+                                          <strong style="font-size:16px; color:#888888;">
+                                            ${senderName}
+                                          </strong>
+                                        </td>
+                                      </tr>
+                                      `
+        }
+
+                                <!-- Zeile 3: Erholsame Feiertage -->
+                                <tr>
+                                    <td align="center" style="font-size:12px; color:#aaaaaa; padding-top:8px;">
+                                        🎅 Erholsame Feiertage! 🎄
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
+
+
                 </table>
             </td>
         </tr>
@@ -555,10 +621,10 @@ function copyEmailTemplate(index) {
 
         navigator.clipboard.write([clipboardItem])
             .then(() => {
-                showNotification('Email copied! You can now paste it into your email client.', 'success');
+                showNotification('E-Mail kopiert! Diese kann nun in Ihrem E-Mail-Programm einfügen werden.', 'Erfolgreich');
             })
             .catch((err) => {
-                console.error('Clipboard write failed:', err);
+                console.error('Kopieren der E-Mail fehlgeschlagen:', err);
                 // Fallback to legacy method
                 copyEmailTemplateFallback(editor);
             });
@@ -578,9 +644,9 @@ function copyEmailTemplateFallback(editor) {
 
     try {
         document.execCommand('copy');
-        showNotification('Email copied! You can now paste it into your email client.', 'success');
+        showNotification('E-Mail kopiert! Diese kann nun in Ihrem E-Mail-Programm einfügen werden.', 'Erfolgreich');
     } catch (err) {
-        showNotification('Failed to copy email. Please try selecting and copying manually.', 'error');
+        showNotification('Die E-Mail konnte nicht kopiert werden. Bitte wählen Sie den Text aus und kopieren Sie ihn manuell.', 'error');
     }
 
     selection.removeAllRanges();
@@ -604,7 +670,7 @@ function copyEmailHTML(index) {
 
     try {
         navigator.clipboard.writeText(htmlContent).then(() => {
-            showNotification('Clean HTML copied to clipboard!', 'success');
+            showNotification('HTML Code Kopiert!', 'Erfolgreich');
         }).catch(() => {
             // Fallback for older browsers
             const textarea = document.createElement('textarea');
@@ -615,10 +681,10 @@ function copyEmailHTML(index) {
             textarea.select();
             document.execCommand('copy');
             document.body.removeChild(textarea);
-            showNotification('Clean HTML copied to clipboard!', 'success');
+            showNotification('HTML Code Kopiert!', 'Erfolgreich');
         });
     } catch (err) {
-        showNotification('Failed to copy HTML. Please try again.', 'error');
+        showNotification('Der HTML-Code konnte nicht kopiert werden. Bitte versuche es erneut.“', 'error');
     }
 }
 
@@ -774,18 +840,18 @@ async function saveFriend() {
 
         closeFriendModal();
         await loadData(); // Reload to get updated data
-        showNotification('Friend saved successfully!', 'success');
+        showNotification('Person erfolgreich gespeichert!', 'Erfolgreich');
     } catch (error) {
-        console.error('Save friend failed:', error);
+        console.error('Person konnte nicht gespeichert werden:', error);
         updateStatusIndicator('error');
-        showNotification(`Error saving friend: ${error.message}`, 'error');
+        showNotification(`Error Person konnte nicht gespeichert werden: ${error.message}`, 'error');
     }
 }
 
 async function deleteFriend(index) {
     const friend = appState.friends[index];
 
-    if (!confirm(`Delete ${friend.name}?`)) {
+    if (!confirm(`${friend.name} entfernen?`)) {
         return;
     }
 
@@ -800,11 +866,11 @@ async function deleteFriend(index) {
         if (error) throw error;
 
         await loadData(); // Reload to get updated list
-        showNotification('Friend deleted successfully!', 'success');
+        showNotification('Person erfolgreich entfernt!', 'Erfolgreich');
     } catch (error) {
-        console.error('Delete friend failed:', error);
+        console.error('Entfernung der Person fehlgeschlagen:', error);
         updateStatusIndicator('error');
-        showNotification(`Error deleting friend: ${error.message}`, 'error');
+        showNotification(`Entfernung der Person fehlgeschlagen: ${error.message}`, 'error');
     }
 }
 
@@ -845,7 +911,7 @@ function updateStatusIndicator(status) {
         statusText.textContent = 'Saving...';
     } else if (status === 'connected') {
         indicator.classList.add('connected');
-        statusText.textContent = 'Saved';
+        statusText.textContent = 'Gespeichert';
     } else if (status === 'error') {
         indicator.classList.add('error');
         statusText.textContent = 'Error';
@@ -869,9 +935,9 @@ function showNotification(message, type = 'info') {
 
 function copyLink(url) {
     navigator.clipboard.writeText(url).then(() => {
-        showNotification('Link copied to clipboard!', 'success');
+        showNotification('Link wurde kopiert!', 'Erfolgreich');
     }).catch(() => {
-        showNotification('Failed to copy link', 'error');
+        showNotification('Linkt konnte nicht kopiert werden', 'error');
     });
 }
 

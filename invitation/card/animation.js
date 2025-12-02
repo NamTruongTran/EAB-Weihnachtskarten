@@ -157,13 +157,13 @@
 
         const cardMessage = document.querySelector('.card-message');
         if (cardMessage) {
-            const message = friend.customFrontMessage || globalSettings.cardFrontMessage || 'Wishing you a wonderful Christmas!';
+            const message = friend.customFrontMessage || globalSettings.cardFrontMessage || 'UND EINEN ERFOLGREICHEN START IN DAS NEUE JAHR!';
             cardMessage.textContent = message;
         }
 
         const cardBackContent = document.querySelector('.card-back-content');
         if (cardBackContent) {
-            const message = friend.customBackMessage || globalSettings.cardBackMessage || 'I wish you all the best for the future.';
+            const message = friend.customBackMessage || globalSettings.cardBackMessage || 'Wir wünschen Ihnen und Ihrer Familie schöne Weihnachten und ein guten Rutsch ins neue Jahr !';
             const formattedMessage = message.replace(/\n/g, '<br>');
 
             // Get signatures (friend-specific or global)

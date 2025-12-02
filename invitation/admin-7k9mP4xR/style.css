@@ -37,7 +37,12 @@ body {
 
 .sidebar {
     width: var(--sidebar-width);
-    background: linear-gradient(180deg, var(--primary) 0%, #1e4a1f 100%);
+    background: linear-gradient(180deg,
+            var(--primary) 0%,
+            #1e4a1f 100%);
+    /* background: linear-gradient(180deg,
+            rgb(179, 0, 0) 0%,
+            rgb(120, 0, 0) 100%); */
     color: white;
     display: flex;
     flex-direction: column;
@@ -123,6 +128,10 @@ body {
     justify-content: center;
 }
 
+#loginBtn {
+    justify-content: center;
+}
+
 .status-bar {
     display: flex;
     align-items: center;
@@ -155,8 +164,15 @@ body {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
 }
 
 .main-content {
@@ -176,8 +192,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .content-header {
@@ -246,7 +269,14 @@ body {
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 8px;
-    color: var(--text);
+    /* color: var(--text); */
+    color: rgb(179, 0, 0);
+
+    /* Neu: */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Abstand zwischen Checkbox und Text */
 }
 
 .form-group small {
@@ -314,12 +344,14 @@ body {
 }
 
 .btn-primary {
-    background: var(--primary);
+    /* background: var(--primary); */
+    background: rgb(179, 0, 0);
     color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: var(--primary-hover);
+    /* background: var(--primary-hover); */
+    background: rgb(179, 130, 130);
     transform: translateY(-1px);
     box-shadow: var(--shadow);
 }
@@ -361,6 +393,21 @@ body {
 
 .btn-outline:hover:not(:disabled) {
     background: var(--bg);
+}
+
+/* Logout-Button im Sidebar-Footer in Weiß darstellen */
+.sidebar-footer .btn-outline {
+    color: #ffffff;
+    /* Text weiß */
+    border-color: rgba(255, 255, 255, 0.6);
+    /* heller Rand */
+}
+
+/* Hover-Zustand auch weiß lassen */
+.sidebar-footer .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.12);
+    /* leicht aufgehellter Hintergrund */
+    color: #ffffff;
 }
 
 .btn-icon {
@@ -790,7 +837,7 @@ body {
         gap: 12px;
     }
 
-    .email-template-header > div {
+    .email-template-header>div {
         width: 100%;
         justify-content: flex-end;
     }
@@ -817,6 +864,7 @@ body {
         transform: translateX(400px);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -923,12 +971,14 @@ body {
 
 .login-header h1 {
     font-size: 2.5em;
-    color: var(--primary);
+    /* color: var(--primary); */
+    color: rgb(179, 0, 0);
     margin-bottom: 5px;
 }
 
 .login-header p {
-    color: var(--text-light);
+    /* color: var(--text-light); */
+    color: rgb(179, 0, 0);
     font-size: 1.1em;
 }
 

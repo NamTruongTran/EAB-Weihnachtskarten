@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Weihnachten</title>
     <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=yes">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="transparent desktopPreview">
-    <div id="loader" style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
-        <div style="width: 50px; height: 50px; border: 5px solid rgba(0,0,0,0.3); border-top-color: #333; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-        <p style="color: #333; margin-top: 20px; font-family: 'Lato', sans-serif;">Loading your card...</p>
+    <div id="loader"
+        style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
+        <div
+            style="width: 50px; height: 50px; border: 5px solid rgba(0,0,0,0.3); border-top-color: #333; border-radius: 50%; animation: spin 1s linear infinite;">
+        </div>
+        <p style="color: #333; margin-top: 20px; font-family: 'Lato', sans-serif;">Karte wird geladen...</p>
     </div>
     <style>
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
     </style>
 
@@ -25,8 +34,8 @@
             <div class="animation">
                 <div class="envelope closed">
                     <div class="envelope_front">
-                        <div class="sender-name">Andrew Reinert</div>
-                        <div class="receiver-name">Linda Seffert</div>
+                        <div class="sender-name">EAB Energie-Anlagen Berlin GmbH</div>
+                        <div class="receiver-name">Max Mustermann</div>
                         <img src="images/stamp.svg" alt="Stamp" class="stamp">
                     </div>
 
@@ -44,22 +53,24 @@
                                         <div class="card-image-placeholder"></div>
                                     </div>
                                     <div class="card-content">
-                                        <h1 class="card-title">Merry<br>Christmas</h1>
-                                        <p class="card-message">I wish you all the best for the future.</p>
-                                        <p class="card-sender">Andrew Reinert</p>
+                                        <h1 class="card-title">Frohe<br>Weihnachten</h1>
+                                        <p class="card-message">UND EINEN ERFOLGREICHEN START IN DAS NEUE JAHR !</p>
+                                        <p class="card-sender">EAB Energie-Anlagen Berlin GmbH</p>
                                     </div>
                                 </div>
                                 <div class="card-logo-placeholder"></div>
-                                <button class="flip-button flip-to-back">Click To Flip To The Back</button>
+                                <button class="flip-button flip-to-back">Klicke hier, um die Kartenrückseite zu
+                                    sehen</button>
                             </div>
                             <div class="card-back">
                                 <div class="card-inner">
                                     <div class="card-back-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <p>Text</p>
+                                        <p>Text</p>
                                     </div>
                                 </div>
-                                <button class="flip-button flip-to-front">Click To Flip To The Front</button>
+                                <button class="flip-button flip-to-front">Klicke hier, um die Kartenvorderseite zu
+                                    sehen</button>
                             </div>
                         </div>
                     </div>
@@ -72,4 +83,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="animation.js"></script>
 </body>
+
 </html>
