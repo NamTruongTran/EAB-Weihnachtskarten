@@ -1,3 +1,10 @@
+:root {
+    --envelope-size: min(90vw, 90vh);
+    --text-scale: 1;
+    --tablet-text-scale: 0.9;
+    --mobile-text-scale: 0.8;
+}
+
 * {
     margin: 0;
     padding: 0;
