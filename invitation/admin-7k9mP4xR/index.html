@@ -270,6 +270,33 @@
                         <input type="text" id="friendSignature2"
                             placeholder="Frei lassen, falls die Standardkonfiguration verwendet werden soll.">
                     </div>
+                    <!-- New -->
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="friendHideSignature1">
+                            Signatur 1 ausblenden
+                        </label>
+                        <small>Blendet die erste Unterschrift für diese Person aus (auch die globale).</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="friendHideSignature2">
+                            Signatur 2 ausblenden
+                        </label>
+                        <small>Blendet die zweite Unterschrift für diese Person aus (auch die globale).</small>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="friendHideSignatures">
+                            Signatur ausblenden (keine Unterschriften für diese Person anzeigen)
+                        </label>
+                        <small>
+                            Wenn aktiviert, werden für diese Person keine Signaturen angezeigt – auch nicht die
+                            globalen.
+                        </small>
+                    </div>
+                    <!-- New -->
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-outline" onclick="closeFriendModal()">Abbrechen</button>

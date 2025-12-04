@@ -57,7 +57,10 @@
             // Load friend by code
             const { data: friends, error: friendsError } = await supabaseClient
                 .from('friends')
-                .select('id, name, code, custom_front_message, custom_back_message, envelope_color, envelope_text_color, title_color, custom_image_url, custom_logo_url, signature1, signature2')
+                //.select('id, name, code, custom_front_message, custom_back_message, envelope_color, envelope_text_color, title_color, custom_image_url, custom_logo_url, signature1, signature2')
+                //New
+                .select('id, name, code, custom_front_message, custom_back_message, envelope_color, envelope_text_color, title_color, custom_image_url, custom_logo_url, signature1, signature2, hide_signature1, hide_signature2, hide_signatures')
+                //New
                 .eq('code', code);
 
             if (friendsError) throw friendsError;
@@ -78,7 +81,12 @@
                 customImageUrl: friendData.custom_image_url,
                 customLogoUrl: friendData.custom_logo_url,
                 signature1: friendData.signature1,
-                signature2: friendData.signature2
+                signature2: friendData.signature2,
+                //New
+                hideSignature1: friendData.hide_signature1,
+                hideSignature2: friendData.hide_signature2,
+                hideSignatures: friendData.hide_signatures
+                //New
             };
 
             await applyPersonalization(globalSettings, friend);
@@ -166,9 +174,35 @@
             const message = friend.customBackMessage || globalSettings.cardBackMessage || 'Wir wünschen Ihnen und Ihrer Familie schöne Weihnachten und ein guten Rutsch ins neue Jahr !';
             const formattedMessage = message.replace(/\n/g, '<br>');
 
-            // Get signatures (friend-specific or global)
-            const sig1 = friend.signature1 || globalSettings.signature1;
-            const sig2 = friend.signature2 || globalSettings.signature2;
+            // // Get signatures (friend-specific or global)
+            // const sig1 = friend.signature1 || globalSettings.signature1;
+            // const sig2 = friend.signature2 || globalSettings.signature2;
+
+            // // Build signatures HTML
+            // let signaturesHTML = '';
+            // if (sig1 || sig2) {
+            //     const singleClass = (sig1 && !sig2) || (!sig1 && sig2) ? ' single' : '';
+            //     signaturesHTML = `<div class="card-signatures${singleClass}">`;
+            //     if (sig1) signaturesHTML += `<div class="card-signature"><img src="${sig1}" alt="Signature 1" /></div>`;
+            //     if (sig2) signaturesHTML += `<div class="card-signature"><img src="${sig2}" alt="Signature 2" /></div>`;
+            //     signaturesHTML += '</div>';
+            // }
+
+            //New
+            // Get signatures (friend-specific or global), aber nur wenn nicht ausgeblendet
+            let sig1 = null;
+            let sig2 = null;
+
+            // 1. Wenn „alle Signaturen ausblenden“ → keine
+            if (!friend.hideSignatures) {
+                // 2. Basis: Freund-spezifisch oder global
+                sig1 = friend.signature1 || globalSettings.signature1;
+                sig2 = friend.signature2 || globalSettings.signature2;
+
+                // 3. Einzelne Signaturen ausblenden
+                if (friend.hideSignature1) sig1 = null;
+                if (friend.hideSignature2) sig2 = null;
+            }
 
             // Build signatures HTML
             let signaturesHTML = '';
@@ -179,6 +213,7 @@
                 if (sig2) signaturesHTML += `<div class="card-signature"><img src="${sig2}" alt="Signature 2" /></div>`;
                 signaturesHTML += '</div>';
             }
+            //New
 
             cardBackContent.innerHTML = `<p>${formattedMessage}</p>${signaturesHTML}`;
         }

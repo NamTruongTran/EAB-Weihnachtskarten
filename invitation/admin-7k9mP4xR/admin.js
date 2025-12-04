@@ -211,6 +211,11 @@ async function loadData() {
             customImageUrl: friend.custom_image_url,
             signature1: friend.signature1,
             signature2: friend.signature2,
+            // New
+            hideSignature1: friend.hide_signature1 || false,
+            hideSignature2: friend.hide_signature2 || false,
+            hideSignatures: friend.hide_signatures || false,
+            // New
             emailHTML: friend.email_html || createEmailTemplate(
                 friend.name,
                 `${baseUrl}?code=${friend.code}`,
@@ -706,7 +711,11 @@ function openAddFriendModal() {
     document.getElementById('friendImageUrl').style.display = 'none';
     document.getElementById('friendSignature1').value = '';
     document.getElementById('friendSignature2').value = '';
-
+    //New
+    document.getElementById('friendHideSignatures').checked = false;
+    document.getElementById('friendHideSignature1').checked = false;
+    document.getElementById('friendHideSignature2').checked = false;
+    //New
     document.getElementById('friendModal').classList.add('active');
 }
 
@@ -730,7 +739,11 @@ function editFriend(index) {
     document.getElementById('friendImageUrl').style.display = friend.customImageUrl ? 'block' : 'none';
     document.getElementById('friendSignature1').value = friend.signature1 || '';
     document.getElementById('friendSignature2').value = friend.signature2 || '';
-
+    //New
+    document.getElementById('friendHideSignature1').checked = !!friend.hideSignature1;
+    document.getElementById('friendHideSignature2').checked = !!friend.hideSignature2;
+    document.getElementById('friendHideSignatures').checked = !!friend.hideSignatures;
+    //New
     document.getElementById('friendModal').classList.add('active');
 }
 
@@ -757,7 +770,12 @@ async function saveFriend() {
         custom_image_url: document.getElementById('friendCustomCard').checked ?
             document.getElementById('friendImageUrl').value.trim() || null : null,
         signature1: document.getElementById('friendSignature1').value.trim() || null,
-        signature2: document.getElementById('friendSignature2').value.trim() || null
+        signature2: document.getElementById('friendSignature2').value.trim() || null,
+        //New
+        hide_signature1: document.getElementById('friendHideSignature1').checked,
+        hide_signature2: document.getElementById('friendHideSignature2').checked,
+        hide_signatures: document.getElementById('friendHideSignatures').checked
+        //New
     };
 
     try {

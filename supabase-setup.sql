@@ -43,6 +43,11 @@ CREATE TABLE IF NOT EXISTS friends (
   custom_logo_url TEXT,
   signature1 TEXT,
   signature2 TEXT,
+  -- NEW
+  hide_signature1 BOOLEAN NOT NULL DEFAULT FALSE;
+  hide_signature2 BOOLEAN NOT NULL DEFAULT FALSE;
+  hide_signatures BOOLEAN NOT NULL DEFAULT FALSE,
+  -- NEW
   email_html TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
