@@ -589,7 +589,7 @@ async function saveEmailTemplate(index) {
     }
 }
 
-function resetEmailTemplate(index) {
+async function resetEmailTemplate(index) {
     const friend = appState.friends[index];
     const baseUrl = window.location.origin + window.location.pathname.replace(/admin-[^\/]+\/.*$/, 'card/index.html');
     const code = friend.code || generateUniqueCode();
@@ -598,16 +598,45 @@ function resetEmailTemplate(index) {
     const envelopeColor = friend.envelopeColor || appState.globalSettings.envelopeColor;
     const envelopeTextColor = friend.envelopeTextColor || appState.globalSettings.envelopeTextColor;
     const logoUrl = friend.customLogoUrl || appState.globalSettings.globalLogoUrl;
-    const defaultHTML = createEmailTemplate(friend.name, url, appState.globalSettings.senderName, envelopeColor, envelopeTextColor, logoUrl);
+
+
+
+    const defaultHTML = createEmailTemplate(
+        friend.name,
+        url,
+        appState.globalSettings.senderName,
+        envelopeColor,
+        envelopeTextColor,
+        logoUrl
+    );
 
     const editor = document.getElementById(`emailEditor${index}`);
     editor.innerHTML = defaultHTML;
 
     appState.friends[index].emailHTML = defaultHTML;
 
-    autoSave();
+    // autoSave();
 
-    showNotification('E-Mail-Template wurde erfolgreich zurückgesetzt.', 'Erfolgreich');
+    // showNotification('E-Mail-Template wurde erfolgreich zurückgesetzt.', 'Erfolgreich');
+
+    //New
+    try {
+        // WICHTIG: in Supabase speichern
+        const { error } = await supabaseClient
+            .from('friends')
+            .update({ email_html: defaultHTML })
+            .eq('id', friend.id);
+
+        if (error) throw error;
+
+        updateStatusIndicator('connected');
+        showNotification('E-Mail-Template wurde erfolgreich zurückgesetzt.', 'Erfolgreich');
+    } catch (error) {
+        console.error('Reset email template failed:', error);
+        updateStatusIndicator('error');
+        showNotification(`Fehler beim Zurücksetzen der E-Mail: ${error.message}`, 'error');
+    }
+    //New
 }
 
 function copyEmailTemplate(index) {
