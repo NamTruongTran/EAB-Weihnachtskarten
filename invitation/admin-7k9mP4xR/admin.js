@@ -439,11 +439,12 @@ function createEmailTemplate(recipientName, cardUrl, senderName, envelopeColor =
                     <tr>
                         <td style="padding: 40px; text-align: center;">
                             <p style="margin: 0 0 20px; font-size: 18px; line-height: 1.6; color: #333333;">
-                                Hallo ${recipientName},
+                                Guten Tag ${recipientName},
                             </p>
 
                             <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: #555555;">
-                               Ich wünsche dir ein wunderbares Weihnachtsfest und ein glückliches neues Jahr! Ich hoffe, dass diese Feiertage dir viel Freude und Glück bringen!
+                                zum Jahresende möchten wir Ihnen herzlich für die vertrauensvolle Zusammenarbeit danken.
+                                Wir wünschen Ihnen ein frohes Weihnachtsfest, erholsame Feiertage und einen erfolgreichen Start in das neue Jahr 2026.
                             </p>
 
                             <p style="margin: 0 0 30px; font-size: 16px; line-height: 1.6; color: #555555;">
@@ -606,7 +607,7 @@ function resetEmailTemplate(index) {
 
     autoSave();
 
-    showNotification('Email template reset to default', 'success');
+    showNotification('E-Mail-Template wurde erfolgreich zurückgesetzt.', 'Erfolgreich');
 }
 
 function copyEmailTemplate(index) {
