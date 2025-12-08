@@ -9,6 +9,7 @@
 
     const timeScale = 1.5; // 1.5
 
+    /* Smartphone */
     // Fix viewport height for mobile browsers (Fallback für Browser ohne dvh-Support)
     function setViewportHeight() {
         // Tatsächliche Viewport-Höhe (ohne Browser-UI)
@@ -17,9 +18,11 @@
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
 
+    /* Smartphone */
     // Beim Laden setzen
     setViewportHeight();
 
+    /* Smartphone */
     // Bei Resize und Orientation-Change aktualisieren
     window.addEventListener('resize', setViewportHeight);
     window.addEventListener('orientationchange', () => {

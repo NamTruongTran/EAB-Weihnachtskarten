@@ -489,11 +489,12 @@ body.white {
     letter-spacing: 0.01em;
     margin: 0 0 clamp(14px, 2.5vw, 20px) 0;
     /* text-indent: clamp(20px, 3vw, 30px); */
-    /* Neu */
+    /* Smartphone */
     text-indent: 0;
-    /* Neu */
+    /* Smartphone */
 }
 
+/* Smartphone */
 /* Speziell für den Absatz nur mit "Ihre" */
 .card-back-content p.closing-line {
     margin-bottom: 2px !important;
@@ -502,6 +503,7 @@ body.white {
     /* weniger Zeilenhöhe */
 }
 
+/* Smartphone */
 /* Und auch für den Absatz direkt danach ("EAB Energie-Anlagen …") */
 .card-back-content p.closing-line+p {
     margin-top: 2px;
@@ -649,23 +651,29 @@ body.white {
     color: #333333;
 }
 
+/* Smartphone */
+
 :root {
     --tablet-landscape-text-scale: 0.65;
     --mobile-landscape-text-scale: 0.5;
 }
 
+/* Smartphone */
 @media (max-width: 768px) {
     :root {
         --text-scale: var(--tablet-text-scale);
     }
 }
 
+/* Smartphone */
 @media (max-width: 480px) {
     :root {
         --text-scale: var(--mobile-text-scale);
     }
 }
 
+
+/* Smartphone */
 /* Landscape mode: when height is smaller than width, use even smaller scale */
 @media (max-height: 768px) and (min-height: 481px) and (orientation: landscape) {
     :root {
@@ -673,6 +681,7 @@ body.white {
     }
 }
 
+/* Smartphone */
 @media (max-height: 480px) and (orientation: landscape) {
     :root {
         --text-scale: var(--mobile-landscape-text-scale);
