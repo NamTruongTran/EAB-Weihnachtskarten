@@ -350,9 +350,9 @@ body.white {
 #mv_msg .envelope .card-front .card-logo-placeholder .custom-card-logo {
     /* width: clamp(80px, 20vw, 150px); */
     /* Größe 1 */
-    /* width: clamp(120px, 25vw, 220px); */
+    width: clamp(120px, 25vw, 220px);
     /* Größe 2 */
-    width: clamp(150px, 30vw, 260px);
+    /* width: clamp(150px, 30vw, 260px); */
     /* Größe 3 */
     /* width: clamp(180px, 35vw, 320px); */
     display: block;
