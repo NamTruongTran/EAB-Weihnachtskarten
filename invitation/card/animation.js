@@ -9,6 +9,24 @@
 
     const timeScale = 1.5; // 1.5
 
+    // Fix viewport height for mobile browsers (Fallback für Browser ohne dvh-Support)
+    function setViewportHeight() {
+        // Tatsächliche Viewport-Höhe (ohne Browser-UI)
+        const vh = window.innerHeight * 0.01;
+        // CSS-Custom-Property setzen
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    // Beim Laden setzen
+    setViewportHeight();
+
+    // Bei Resize und Orientation-Change aktualisieren
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', () => {
+        // Kleiner Delay, damit neue Dimensionen sicher da sind
+        setTimeout(setViewportHeight, 100);
+    });
+
     function scaledTime(ms) {
         return Math.round(ms / timeScale);
     }
@@ -169,42 +187,116 @@
             cardMessage.textContent = message;
         }
 
+        // const cardBackContent = document.querySelector('.card-back-content');
+        // if (cardBackContent) {
+        //     const message = friend.customBackMessage || globalSettings.cardBackMessage || 'Wir wünschen Ihnen und Ihrer Familie schöne Weihnachten und ein guten Rutsch ins neue Jahr !';
+        //     const formattedMessage = message.replace(/\n/g, '<br>');
+
+        //     // // Get signatures (friend-specific or global)
+        //     // const sig1 = friend.signature1 || globalSettings.signature1;
+        //     // const sig2 = friend.signature2 || globalSettings.signature2;
+
+        //     // // Build signatures HTML
+        //     // let signaturesHTML = '';
+        //     // if (sig1 || sig2) {
+        //     //     const singleClass = (sig1 && !sig2) || (!sig1 && sig2) ? ' single' : '';
+        //     //     signaturesHTML = `<div class="card-signatures${singleClass}">`;
+        //     //     if (sig1) signaturesHTML += `<div class="card-signature"><img src="${sig1}" alt="Signature 1" /></div>`;
+        //     //     if (sig2) signaturesHTML += `<div class="card-signature"><img src="${sig2}" alt="Signature 2" /></div>`;
+        //     //     signaturesHTML += '</div>';
+        //     // }
+
+        //     //New
+        //     // Get signatures (friend-specific or global), aber nur wenn nicht ausgeblendet
+        //     let sig1 = null;
+        //     let sig2 = null;
+
+        //     // 1. Wenn „alle Signaturen ausblenden“ → keine
+        //     if (!friend.hideSignatures) {
+        //         // 2. Basis: Freund-spezifisch oder global
+        //         sig1 = friend.signature1 || globalSettings.signature1;
+        //         sig2 = friend.signature2 || globalSettings.signature2;
+
+        //         // 3. Einzelne Signaturen ausblenden
+        //         if (friend.hideSignature1) sig1 = null;
+        //         if (friend.hideSignature2) sig2 = null;
+        //     }
+
+        //     // Build signatures HTML
+        //     let signaturesHTML = '';
+        //     if (sig1 || sig2) {
+        //         const singleClass = (sig1 && !sig2) || (!sig1 && sig2) ? ' single' : '';
+        //         signaturesHTML = `<div class="card-signatures${singleClass}">`;
+        //         if (sig1) signaturesHTML += `<div class="card-signature"><img src="${sig1}" alt="Signature 1" /></div>`;
+        //         if (sig2) signaturesHTML += `<div class="card-signature"><img src="${sig2}" alt="Signature 2" /></div>`;
+        //         signaturesHTML += '</div>';
+        //     }
+        //     //New
+
+        //     cardBackContent.innerHTML = `<p>${formattedMessage}</p>${signaturesHTML}`;
+        // }
+
+        // Smartphone
         const cardBackContent = document.querySelector('.card-back-content');
         if (cardBackContent) {
-            const message = friend.customBackMessage || globalSettings.cardBackMessage || 'Wir wünschen Ihnen und Ihrer Familie schöne Weihnachten und ein guten Rutsch ins neue Jahr !';
-            const formattedMessage = message.replace(/\n/g, '<br>');
+            const rawMessage =
+                friend.customBackMessage ||
+                globalSettings.cardBackMessage ||
+                'I wish you all the best for the future.';
 
-            // // Get signatures (friend-specific or global)
-            // const sig1 = friend.signature1 || globalSettings.signature1;
-            // const sig2 = friend.signature2 || globalSettings.signature2;
+            // --- Text in Zeilen aufteilen ---
+            const lines = rawMessage.trim().split('\n');
 
-            // // Build signatures HTML
-            // let signaturesHTML = '';
-            // if (sig1 || sig2) {
-            //     const singleClass = (sig1 && !sig2) || (!sig1 && sig2) ? ' single' : '';
-            //     signaturesHTML = `<div class="card-signatures${singleClass}">`;
-            //     if (sig1) signaturesHTML += `<div class="card-signature"><img src="${sig1}" alt="Signature 1" /></div>`;
-            //     if (sig2) signaturesHTML += `<div class="card-signature"><img src="${sig2}" alt="Signature 2" /></div>`;
-            //     signaturesHTML += '</div>';
-            // }
+            const paragraphs = [];
+            let buffer = [];
 
-            //New
-            // Get signatures (friend-specific or global), aber nur wenn nicht ausgeblendet
-            let sig1 = null;
-            let sig2 = null;
+            for (const line of lines) {
+                const trimmed = line.trim();
 
-            // 1. Wenn „alle Signaturen ausblenden“ → keine
-            if (!friend.hideSignatures) {
-                // 2. Basis: Freund-spezifisch oder global
-                sig1 = friend.signature1 || globalSettings.signature1;
-                sig2 = friend.signature2 || globalSettings.signature2;
+                // 1) Leere Zeile -> Absatz beenden
+                if (!trimmed) {
+                    if (buffer.length) {
+                        paragraphs.push(buffer.join('\n'));
+                        buffer = [];
+                    }
+                    continue;
+                }
 
-                // 3. Einzelne Signaturen ausblenden
-                if (friend.hideSignature1) sig1 = null;
-                if (friend.hideSignature2) sig2 = null;
+                // 2) Zeile, die NUR "Ihre" enthält -> eigener Absatz
+                if (/^Ihre\s*$/i.test(trimmed)) {
+                    if (buffer.length) {
+                        paragraphs.push(buffer.join('\n'));
+                        buffer = [];
+                    }
+                    paragraphs.push(trimmed);
+                    continue;
+                }
+
+                // 3) Normale Zeile -> an aktuellen Absatz anhängen
+                buffer.push(trimmed);
             }
 
-            // Build signatures HTML
+            // Letzten Puffer nicht vergessen
+            if (buffer.length) {
+                paragraphs.push(buffer.join('\n'));
+            }
+
+            // 4) Aus Absätzen <p>-Tags machen, einfache \n in <br> umwandeln
+            // const paragraphsHTML = paragraphs
+            //     .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+            //     .join('');
+            const paragraphsHTML = paragraphs
+                .map(p => {
+                    const isClosingLine = /^Ihre\s*$/i.test(p.trim());
+                    const cls = isClosingLine ? 'class="closing-line"' : '';
+                    return `<p ${cls}>${p.replace(/\n/g, '<br>')}</p>`;
+                })
+                .join('');
+
+            // ------- Signaturen (deine bisherige Logik) -------
+            const sig1 = friend.signature1 || globalSettings.signature1;
+            const sig2 = friend.signature2 || globalSettings.signature2;
+
             let signaturesHTML = '';
             if (sig1 || sig2) {
                 const singleClass = (sig1 && !sig2) || (!sig1 && sig2) ? ' single' : '';
@@ -213,9 +305,9 @@
                 if (sig2) signaturesHTML += `<div class="card-signature"><img src="${sig2}" alt="Signature 2" /></div>`;
                 signaturesHTML += '</div>';
             }
-            //New
 
-            cardBackContent.innerHTML = `<p>${formattedMessage}</p>${signaturesHTML}`;
+            // 5) Alles einfügen
+            cardBackContent.innerHTML = `${paragraphsHTML}${signaturesHTML}`;
         }
 
         const envelopeColor = friend.envelopeColor || globalSettings.envelopeColor;

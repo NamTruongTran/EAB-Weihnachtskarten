@@ -1,9 +1,27 @@
-:root {
+/* :root {
     --envelope-size: min(90vw, 90vh);
     --text-scale: 1;
     --tablet-text-scale: 0.9;
     --mobile-text-scale: 0.8;
+} */
+
+/* Smartphone */
+:root {
+    --vh: 1vh;
+    --envelope-size: min(90vw, calc(90 * var(--vh)));
+    --text-scale: 1;
+    --tablet-text-scale: 0.9;
+    --mobile-text-scale: 0.8;
 }
+
+/* Moderne Browser: nutzen dynamic viewport height (dvh) */
+@supports (height: 100dvh) {
+    :root {
+        --vh: 1dvh;
+    }
+}
+
+/* Smartphone */
 
 * {
     margin: 0;
@@ -22,10 +40,6 @@ body.transparent {
 
 body.white {
     background: white;
-}
-
-:root {
-    --envelope-size: min(90vw, 90vh);
 }
 
 #stage {
@@ -64,10 +78,22 @@ body.white {
     z-index: 1;
 }
 
-#mv_msg .envelope {
+/* #mv_msg .envelope {
     position: absolute;
     left: 50%;
     top: -100vh;
+    width: var(--envelope-size);
+    height: calc(var(--envelope-size) * 0.842);
+    transform: translateX(-50%);
+    transform-style: preserve-3d;
+    transition: top 1.5s ease-in-out, transform 1.5s ease-in-out;
+} */
+
+/* Smartphone */
+#mv_msg .envelope {
+    position: absolute;
+    left: 50%;
+    top: calc(-100 * var(--vh));
     width: var(--envelope-size);
     height: calc(var(--envelope-size) * 0.842);
     transform: translateX(-50%);
@@ -483,7 +509,28 @@ body.white {
     line-height: 1.8;
     letter-spacing: 0.01em;
     margin: 0 0 clamp(14px, 2.5vw, 20px) 0;
-    text-indent: clamp(20px, 3vw, 30px);
+    /* text-indent: clamp(20px, 3vw, 30px); */
+    /* Smartphone */
+    text-indent: 0;
+    /* Smartphone */
+}
+
+/* Smartphone */
+/* Speziell für den Absatz nur mit "Ihre" */
+.card-back-content p.closing-line {
+    margin-bottom: 2px !important;
+    /* sehr kleiner Abstand nach unten */
+    line-height: 1.2;
+    /* weniger Zeilenhöhe */
+}
+
+/* Smartphone */
+/* Und auch für den Absatz direkt danach ("EAB Energie-Anlagen …") */
+.card-back-content p.closing-line+p {
+    margin-top: 2px;
+    /* optional, zur Sicherheit */
+    line-height: 1.2;
+    /* dichter an "Ihre" dran */
 }
 
 #mv_msg .envelope .card-back .card-back-content p:first-child {
@@ -558,7 +605,7 @@ body.white {
     transition: transform 1.2s ease-in-out;
 }
 
-#mv_msg .envelope.dismissed .envelope_back .flap_inside {
+/* #mv_msg .envelope.dismissed .envelope_back .flap_inside {
     transform: rotateX(0deg) translateZ(0.1px) translate3d(0, 200vh, 0);
 }
 
@@ -576,10 +623,37 @@ body.white {
 
 #mv_msg .envelope.dismissed .envelope_back .lining {
     transform: translateZ(-1px) translate3d(0, 200vh, 0);
+} */
+
+/* Smartphone */
+#mv_msg .envelope.dismissed .envelope_back .flap_inside {
+    transform: rotateX(0deg) translateZ(0.1px) translate3d(0, calc(200 * var(--vh)), 0);
 }
 
-#mv_msg .envelope.movedDown {
+#mv_msg .envelope.dismissed .envelope_back .flap_outside {
+    transform: rotateX(180deg) translateZ(1px) translate3d(0, calc(200 * var(--vh)), 0);
+}
+
+#mv_msg .envelope.dismissed .envelope_back .envelope_back_outside {
+    transform: translateZ(0.33px) translate3d(0, calc(200 * var(--vh)), 0);
+}
+
+#mv_msg .envelope.dismissed .envelope_back .shadow-object {
+    transform: translate3d(0, calc(200 * var(--vh)), 0);
+}
+
+#mv_msg .envelope.dismissed .envelope_back .lining {
+    transform: translateZ(-1px) translate3d(0, calc(200 * var(--vh)), 0);
+}
+
+/* #mv_msg .envelope.movedDown {
     top: calc(50vh + var(--envelope-size) * 0.1);
+    transform: translateX(-50%);
+} */
+
+/* Smartphone */
+#mv_msg .envelope.movedDown {
+    top: calc(50 * var(--vh) + var(--envelope-size) * 0.1);
     transform: translateX(-50%);
 }
 
@@ -623,4 +697,34 @@ body.white {
 .flip-button:active {
     transform: translateX(-50%) translateY(0px);
     color: #333333;
+}
+
+:root {
+    --tablet-landscape-text-scale: 0.65;
+    --mobile-landscape-text-scale: 0.5;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --text-scale: var(--tablet-text-scale);
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --text-scale: var(--mobile-text-scale);
+    }
+}
+
+/* Landscape: wenn Höhe kleiner als Breite ist */
+@media (max-height: 768px) and (min-height: 481px) and (orientation: landscape) {
+    :root {
+        --text-scale: var(--tablet-landscape-text-scale);
+    }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+    :root {
+        --text-scale: var(--mobile-landscape-text-scale);
+    }
 }
