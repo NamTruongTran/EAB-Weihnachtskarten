@@ -490,9 +490,9 @@ body.white {
 #mv_msg .envelope .card-back .card-back-content p {
     font-family: "Times New Roman", Georgia, "Times", serif;
     font-style: italic;
-    /* font-size: clamp(calc(12px * var(--text-scale)), calc(2vw * var(--text-scale)), calc(13px * var(--text-scale))); */
+    font-size: clamp(calc(12px * var(--text-scale)), calc(2vw * var(--text-scale)), calc(13px * var(--text-scale)));
     /* New */
-    font-size: clamp(12px, 2vw, 13px);
+    /* font-size: clamp(12px, 2vw, 13px); */
     /* New */
     font-weight: 400;
     color: #2c2c2c;
