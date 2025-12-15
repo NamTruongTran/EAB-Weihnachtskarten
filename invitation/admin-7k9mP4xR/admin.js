@@ -447,7 +447,7 @@ function createEmailTemplate(recipientName, cardUrl, senderName, envelopeColor =
                             </p>
 
                             <p style="margin: 0 0 30px; font-size: 16px; line-height: 1.6; color: #555555;">
-                                Klicke unten auf „Karte öffnen“ um dir die Karte anzuschauen:
+                                Klicken Sie unten auf „Karte öffnen“, um sich die Karte anzuschauen.
                             </p>
 
                             <!-- CTA Button -->
