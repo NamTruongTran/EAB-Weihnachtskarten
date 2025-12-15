@@ -244,7 +244,7 @@
             const rawMessage =
                 friend.customBackMessage ||
                 globalSettings.cardBackMessage ||
-                'I wish you all the best for the future.';
+                'Wir wünshen Ihnen und Ihrer Familie schöne Weihnachten und ein guten Rutsch ins neue Jahr!';
 
             // --- Text in Zeilen aufteilen ---
             const lines = rawMessage.trim().split('\n');
