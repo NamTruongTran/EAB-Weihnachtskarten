@@ -265,7 +265,8 @@
                 }
 
                 // 2) Zeile, die NUR "Ihre" enthält -> eigener Absatz
-                if (/^Ihre\s*$/i.test(trimmed)) {
+                // if (/^Ihre\s*$/i.test(trimmed)) 
+                if (/^(Ihre|Deine)\s*$/i.test(trimmed)) {
                     if (buffer.length) {
                         paragraphs.push(buffer.join('\n'));
                         buffer = [];
@@ -289,7 +290,8 @@
             //     .join('');
             const paragraphsHTML = paragraphs
                 .map(p => {
-                    const isClosingLine = /^Ihre\s*$/i.test(p.trim());
+                    // const isClosingLine = /^Ihre\s*$/i.test(p.trim());
+                    const isClosingLine = /^(Ihre|Deine)\s*$/i.test(p.trim());
                     const cls = isClosingLine ? 'class="closing-line"' : '';
                     return `<p ${cls}>${p.replace(/\n/g, '<br>')}</p>`;
                 })
